@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.DS_Store
+.env
+.env.*
+coverage/
+# dist/ is intentionally COMMITTED — GitHub Actions runs the bundle directly.

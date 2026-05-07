@@ -1,0 +1,53 @@
+name: 'Vibe Code Health Scan'
+description: 'Skenuje commit/PR na uniklé API klíče, source mapy a vibe-coding chyby. Powered by Grovetech AI.'
+author: 'Grovetech AI s.r.o.'
+branding:
+  icon: 'shield'
+  color: 'orange'
+inputs:
+  api-key:
+    description: 'Vibe Scan API klíč (vygenerujte na https://vibe.grovetechai.com/github)'
+    required: true
+  severity-threshold:
+    description: 'Fail job at this severity or above (critical | high | medium | low | none).'
+    required: false
+    default: 'high'
+  paths:
+    description: 'Glob patterns to include (multiline). Defaults to common config/source files.'
+    required: false
+    default: |
+      .env*
+      **/.env*
+      **/*.config.{js,ts,json}
+      **/firebase.json
+      **/package.json
+      src/**/*.{ts,tsx,js,jsx}
+      app/**/*.{ts,tsx,js,jsx}
+  api-base-url:
+    description: 'Override the Vibe Scan API base URL (self-hosted instances).'
+    required: false
+    default: 'https://vibe.grovetechai.com'
+  comment-on-pr:
+    description: 'Post a summary comment on the PR (requires pull-requests: write).'
+    required: false
+    default: 'true'
+  github-token:
+    description: 'GitHub token used to post the PR comment. Default ${{ github.token }} works for same-repo PRs.'
+    required: false
+    default: ${{ github.token }}
+outputs:
+  score:
+    description: 'Repo health score (0-100).'
+  risk-level:
+    description: 'high | medium | low'
+  critical-count:
+    description: 'Number of CRITICAL findings.'
+  high-count:
+    description: 'Number of HIGH findings.'
+  scan-id:
+    description: 'Vibe Scan run ID for the report URL.'
+  report-url:
+    description: 'Direct link to the scan report on /github.'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

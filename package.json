@@ -1,0 +1,40 @@
+{
+  "name": "@grovetech/scanner-action",
+  "version": "1.0.0",
+  "private": false,
+  "description": "GitHub Action — scan every commit / PR for leaked API keys and vibe-coding security mistakes via Grovetech AI Vibe Scan.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build src/index.ts -o dist --source-map --minify",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "security",
+    "github-action",
+    "vibe-coding",
+    "secret-scanning",
+    "code-review",
+    "grovetech"
+  ],
+  "license": "MIT",
+  "author": "Grovetech AI s.r.o.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grovetechai/scanner-action"
+  },
+  "homepage": "https://vibe.grovetechai.com/github",
+  "bugs": {
+    "url": "https://github.com/grovetechai/scanner-action/issues"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "@actions/glob": "^0.4.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.5"
+  }
+}
