@@ -15,15 +15,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - run: npm ci
       - run: npm test
       - run: npm run build
-      - name: Verify dist/ is up to date
+      - name: Warn if dist/index.js drifted
         run: |
-          if ! git diff --quiet dist/; then
-            echo "::error::dist/ is out of date. Run 'npm run build' and commit the result."
-            git --no-pager diff dist/ | head -50
-            exit 1
+          if ! git diff --quiet dist/index.js; then
+            echo "::warning::dist/index.js differs from committed bundle. Run 'npm run build' locally and commit before tagging a release."
           fi

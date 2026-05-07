@@ -12,10 +12,16 @@ permissions:
 jobs:
   scan-self:
     runs-on: ubuntu-latest
-    if: ${{ secrets.VIBE_API_KEY != '' }}
+    env:
+      HAS_VIBE_KEY: ${{ secrets.VIBE_API_KEY != '' }}
     steps:
-      - uses: actions/checkout@v4
-      - name: Run scanner-action against this repo
+      - if: env.HAS_VIBE_KEY != 'true'
+        run: |
+          echo "::notice::VIBE_API_KEY secret not set; skipping self-test."
+      - if: env.HAS_VIBE_KEY == 'true'
+        uses: actions/checkout@v4
+      - if: env.HAS_VIBE_KEY == 'true'
+        name: Run scanner-action against this repo
         uses: ./
         with:
           api-key: ${{ secrets.VIBE_API_KEY }}
