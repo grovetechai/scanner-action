@@ -1,6 +1,6 @@
 {
   "name": "@grovetech/scanner-action",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "description": "GitHub Action — scan every commit / PR for leaked API keys and vibe-coding security mistakes via Grovetech AI Vibe Scan.",
   "main": "dist/index.js",
@@ -33,6 +33,7 @@
     "@actions/glob": "^0.4.0"
   },
   "devDependencies": {
+    "@types/node": "^20.12.0",
     "@vercel/ncc": "^0.38.1",
     "tsx": "^4.7.0",
     "typescript": "^5.4.5"

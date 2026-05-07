@@ -3,6 +3,14 @@
 All notable changes to this action are documented here.
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [1.0.2] — 2026-05-07
+
+### Fixed
+- Added missing `@types/node` devDependency so the ncc build on a
+  fresh CI runner can resolve `node:fs`, `node:path`, `process`,
+  `fetch`, and `node:test` types. Without it the v1.0.1 release
+  workflow failed at `npm run build` with TS2307 errors.
+
 ## [1.0.1] — 2026-05-07
 
 ### Fixed
